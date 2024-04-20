@@ -1,0 +1,587 @@
+/* Menu */
+/* je nomme mes grid-area pour mon grid-template-areas */
+/* .item1 {
+    grid-area: item1;
+}
+.item2 {
+    grid-area: item2;
+}
+.item3 {
+    grid-area: item3;
+}
+.item4 {
+    grid-area: item4;
+}
+.item5 {
+    grid-area: item5;
+}
+.item6 {
+    grid-area: item6;
+}
+.items7 {
+    grid-area: item7;
+} */
+
+/* .slider-container {
+    background: rgb(240, 238, 238);
+    padding: 10px;
+} */
+.americainSandwichContainer, 
+.paniniContainer {
+    background: rgb(240, 238, 238);
+    padding: 30px;
+    margin: 20px 0 20px 0;
+}
+
+.slider-container h2 {
+    color: rgb(161, 40, 40);
+    text-align: center;
+    text-transform: capitalize;
+    margin: 30px 0 20px 0;
+    text-decoration: underline;
+    font-family: var(--police-Raleway-Bold);
+    font-size: var(--title-size);
+}
+
+.slider-grid {
+    display: flex;
+    /* overflow-x: auto;  */
+    scroll-snap-type: x mandatory; /* Assure le défilement fluide */
+    cursor: grab;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none;
+}
+
+.slider-grid h3 {
+    text-align: center;
+}
+
+.introMenuSlider {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 30px 20px;
+    background: rgb(240, 238, 238);
+    padding: 10px;
+    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.3);
+}
+.introAmericainsS, 
+.introPaninis {
+    background: var(--secondary-color);
+}
+.introMenuSlider p {
+    padding: 20px;
+    font-family: var(--police-Raleway-Regular);
+}
+
+.iconeMenu, 
+.iconeMenu3 {
+    width: 50px;
+    height: 50px;
+}
+.iconeMenu2,
+.iconeMenu4 {
+    width: 100px;
+    height: 100px;
+}
+.iconeMenu5 {
+    height: 50px;
+    width: 80px;
+}
+
+
+.slider-track1, 
+.slider-track2, 
+.slider-track3, 
+.slider-track4, 
+.slider-track5 {
+    display: flex;
+    gap: 10px; /* Espacement entre les éléments *//* Assure le défilement s'aligne correctement */
+}
+/* .slider-track3, 
+.slider-track4 {
+    grid-template-areas:
+    "item1 item2 item3 item4 item5 item6 item7";
+    grid-template-columns: repeat(7, 1fr);
+} */
+.slider-track1.dragging,
+.slider-track2.dragging,
+.slider-track3.dragging, 
+.slider-track4.dragging,
+.slider-track5.dragging  {
+    cursor: grabbing;
+}
+.slider2, 
+.slider3, 
+.slider4,
+.slider5 {
+    margin-top: 30px;
+}
+
+.slider-item {
+    position: relative;
+    width: 280px;
+    transform: skewX(-10deg); /* Inclinaison en hauteur, ajustez l'angle selon vos préférences */
+    padding: 0 30px;
+    user-select: none;
+}
+
+.background-imageMenu {
+    width: 100%;
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--primary-color);
+}
+
+.background-imageMenuZoom {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* position: absolute;
+    top: 0;
+    left: 0; */
+    /* transition: transform 0.3s ease;  */
+}
+
+/* .background-imageMenu:hover .background-imageMenuZoom {
+transform: scale(1.2); 
+} */
+
+.descriptionMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+
+.nameDish {
+    padding: 5px 0 5px 0;
+    color: rgb(161, 40, 40);
+    font-family: var(--police-Raleway-SemiBold);
+    font-size: 0.8em;
+}
+.caption {
+    font-family: var(--police-Raleway-Medium);
+    font-size: 0.7em;
+}
+.price {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(161, 40, 40);
+    color: var(--secondary-color);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    font-family: var(--police-Raleway-Regular);
+    z-index: 2;
+}
+.priceForPizza {
+    width: 90px;
+    height: 90px;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+
+/* Reste du menu */
+.PlatFriteOuSans {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    background: rgb(240, 238, 238);
+    padding: 20px;
+    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.3);
+}
+.PlatFriteOuSans img {
+    width: 70px;
+    height: 70px;
+    margin-top: 30px;
+}
+
+.assietteVide,
+.assietteFrite {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto;
+    background: var(--secondary-color);
+    padding: 5px;
+    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+.assietteVide p,
+.assietteFrite p {
+    padding: 20px;
+    font-family: var(--police-Raleway-Regular);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid var(--primary-color);
+    padding: 8px;
+    text-align: left;
+    background: var(--secondary-color);
+}
+
+th {
+    font-family: var(--police-Raleway-SemiBold);
+    background-color: rgb(161, 40, 40);  
+    color: var(--secondary-color);
+}
+td {
+    font-family: var(--police-Raleway-Regular);
+    font-size: 0.8em;
+}
+
+/* Menu Enfant */
+.menuEnfantContainer {
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.menuEnfant {
+    position: relative;
+    background: url("./../img/menuEnfant.png");
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    width: 500px;
+    height: 500px;
+    transition: transform 0.3s ease-in-out;
+}
+.menuEnfant:hover {
+    transform: scale(1.1);
+}
+
+
+.carteEnfant {
+    position: absolute;
+    top: 44%; 
+    left: 55%;
+    transform: translateX(-50%);
+    color: var(--secondary-color);
+    padding: 5px;
+    border-radius: 0.5em;
+    font-size: 0.8em;
+    font-family: var(--police-Raleway-Regular);
+}
+.carteEnfant ul li {
+    line-height: 1.2em;
+    padding: 10px;
+}
+.carteEnfant ol li {
+    padding: 10px;
+    line-height: 0.5em;
+}
+
+
+/* Les frites */
+.friteContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+    background: rgb(240, 238, 238);
+    padding: 20px;
+    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.3);
+}
+.enteteFrite {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto;
+    background: var(--secondary-color);
+    padding: 5px;
+    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+.enteteFrite p {
+    margin-bottom: 10px;
+    font-family: var(--police-Raleway-Regular);
+}
+.friteContainer img {
+    width: 80px;
+    height: 80px;
+}
+
+.friteContainer ul{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-evenly;
+    align-items: center;
+    list-style: none;
+    width: 100%;
+    margin: 50px;
+}
+.petiteFrite,
+.moyenneFrite, 
+.grandeFrite {
+    position: relative;
+    background: url("./../img/pancarteFrite.png");
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    width: 200px;
+    height: 300px;
+    transition: transform 0.4s ease;
+}
+.petiteFrite:hover,
+.moyenneFrite:hover, 
+.grandeFrite:hover {
+    transform: scale(1.2);
+} 
+.priceFrite {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    bottom: 44%;
+    left: 73%;
+    transform: translateX(-50%);
+    background-color: rgba(238, 234, 7, 0.8);
+    padding: 5px;
+    color: var(--primary-color);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 0.8em;
+    font-family: var(--police-Raleway-Medium);
+}
+.friteSize {
+    position: absolute;
+    text-align: center;
+    top: 40px; 
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(238, 7, 7, 0.8); 
+    color: var(--secondary-color);
+    padding: 5px;
+    border-radius: 0.5em;
+    font-family: var(--police-Raleway-SemiBold);
+}
+
+
+
+/* Les boissons */
+
+.menu-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 20px;
+}
+
+.headerBoisson {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.headerBoisson img {
+    height: 70px;
+    width: 70px;
+}
+.drink-card {
+    position: relative;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    margin: 10px;
+    width: 300px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.drink-card:hover {
+    transform: scale(1.05);
+}
+
+.drink-image {
+    width: 100%;
+    height: 150px;
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat;
+}
+
+.drink-details {
+    padding: 15px;
+    text-align: center;
+}
+
+.drink-detail sh3 {
+    margin: 0;
+}
+
+.drink-details p {
+    color: var(--secondary-color);
+    font-size: 12px;
+}
+
+.priceBoisson {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+
+/* Sauces */
+.sauceContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px;
+    background: rgb(240, 238, 238);
+    padding: 20px;
+    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.3);
+}
+.sauceContainer img {
+    width: 80px;
+    height: 80px;
+}
+.sauceContainer p {
+    text-align: center;
+    margin: 5px;
+    padding: 8px;
+    color: rgb(161, 40, 40);
+    font-family: var(--police-Raleway-SemiBold);
+}
+.cadreSauce {
+    position: relative;
+    padding: 20px;
+    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.3);
+    border: 3px solid rgb(161, 40, 40);
+    border-style: double;
+}
+
+.prixSauces {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.sauceList {
+    width: 100%;
+}
+.sauceList ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: var(--primary-color);
+    list-style: none;
+    flex-wrap: wrap;
+    font-family: var(--police-Raleway-Regular);
+    text-align: center;
+    line-height: 1.5em;
+}
+
+/* Horaires */
+.horaires {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid rgb(161, 40, 40);
+    border-style: double;
+    margin: 20px 30px;
+}
+.horaires h3 {
+    color: rgb(161, 40, 40);
+    margin: 20px 0 10px 0;
+}
+.horaires p {
+    padding: 10px;
+    font-size: 0.8em;
+    font-family: var(--police-Raleway-Regular);
+}
+
+/* Localisation */
+.imageIframe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 3px solid var(--primary-color);
+}
+.imageIframe iframe {
+    margin: 20px 30px;
+}
+
+/* Infos */
+.info {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    min-height: 100px;
+    margin-top: 20px;
+    width: 100%;
+    /* border-top: 3px solid var(--primary-color); */
+}
+
+.paiementCarte,
+.reservation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.paiementCarte p,
+.reservation p {
+    text-align: center; 
+    font-size: 0.8em;
+    font-family: var(--police-Raleway-Regular);
+}
+.paiementCarte img{
+    height: 50px;
+    width: 50px;
+}
+.reservation img {
+    height: 50px;
+    width: 60px;
+}
+.reservation {
+    margin-top: 15px;
+}
+.reservation a {
+    text-decoration: none;
+    color: var(--secondary-color);
+}

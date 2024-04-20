@@ -1,0 +1,113 @@
+/* @media screen and (min-width: 700px) { */
+header {
+    height: 100px;
+}
+.nav-toggle {
+    display: none; /* Cacher le bouton de menu sur les écrans plus larges */
+}
+.navigation {
+    position: static;
+    width: 100%;
+    transform: translateX(0);
+    background-color: transparent;
+}
+.navigation ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    font-size: var(--title-size);
+}
+.logo {
+    position: static;
+}
+/* polygone */
+.grid-container {
+    height: 300px;
+}
+.triangle {
+    height: 300px;
+    width: 35vw;
+}
+
+.tableSectionMenuContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4, 1fr);
+}
+.imagePlace2 {
+    grid-column: 2;
+    grid-row: 2;
+}
+.imagePlace4 {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+
+/* Menu */
+
+.background-imageMenu {
+    height: 360px;
+}
+
+.nameDish{
+    font-size: 1em;
+}
+.caption {
+    font-size: 0.8em;
+}
+.menuEnfant:hover {
+    transform: scale(1.1);
+}
+
+
+/* plat frite ou sans  */
+.PlatFriteOuSans {
+    margin: 30px;
+}
+
+/* horaire et localisation */
+.horaireEtLocalisation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 3px solid var(--primary-color);
+}
+.imageIframe {
+    border: none;
+}
+.localisation h3 {
+    color: rgb(161, 40, 40);
+    margin: 0;
+    text-align: center;
+}
+.imageIframe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imageIframe iframe {
+    width: 100%;
+}
+
+/* Boissons */
+
+.priceBoisson {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+
+.drink-details p {
+    color: var(--secondary-color);
+    font-size: 15px;
+}
