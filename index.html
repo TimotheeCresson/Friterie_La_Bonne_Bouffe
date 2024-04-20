@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Timothée CRESSON">
+    <meta name="description" content="Découvrez La Bonne Bouffe, votre destination pour des frites fraîches croustillantes et des spécialités belges. Savourez nos sauces maison et commandez en ligne pour une livraison rapide ou une expérience conviviale en personne. Bienvenue chez La Bonne Bouffe.">
+    <meta name="keywords" content="Frites, La Bonne Bouffe, Thumeries, Américains, burger, Restauration rapide, Snack"><!--Mot clé pour les moteurs de recherches des bots sur les sites web-->
+    <title>Friterie, "La Bonne Bouffe"</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+
+        <div class="loader" :class="{ 'fondu-out': loaded }" v-if="!videoEnded">
+            <video controls playsinline class="video-background" @ended="onVideoEnded">
+                <source :src="videoSrc" type="video/mp4">
+                Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.
+            </video>
+            <div class="phrase">
+                <span class="wordVideo">Bonjour,</span>
+                <span class="wordVideo">Bienvenue</span>
+                <span class="wordVideo">à</span>
+                <span class="wordVideo">"La</span> 
+                <span class="wordVideo">"Bonne</span> 
+                <span class="wordVideo">Bouffe"</span> 
+            </div>
+            <div class="accederSite">
+                <a href="" @click="fermerVideoEtRediriger">Accéder directement au site</a>
+            </div>
+            
+        </div>
+
+        <div  v-if="videoEnded">
+        <!-- Entête -->
+        <header id="accueil">
+            <img class="logo" src="./img/logo.jpg" alt="logo" loading="lazy">
+            <div class="nav-toggle" @click="toggleMenu">
+                <div class="nav-toggle-bar">
+                    <i :class="iconClass" class="fa-solid"></i>
+                </div>
+            </div>
+            <nav :class="{ 'menu-open': isMenuOpen }" class="navigation">
+                <ul>
+                <li><a  @click="scrollToSection('menu')" href="#menu">Menu</a></li>
+                <li><a  @click="scrollToSection('horaires')" href="#horaires">Horaires</a></li>
+                <li><a @click="scrollToSection('contact')" href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- section polygone image -->
+
+       <!-- On itère à travers le tableau triangles, pour chaque triangle, on crée une div, on attribue pour chaque élément une clé unique id, une classe triangle et une classe spécifique (triangle1 ...) et on ajoute les images-->
+        <div class="grid-container">
+            <div v-for="triangle in triangles" :key="triangle.id" class="triangle" :class="triangle.class" :style="{ backgroundImage: 'url(' + triangle.image + ')' }">
+            </div>
+        </div>
+      
+    
+        <!-- Section Menu sandwichChauds -->
+        <div class="slider-container" id="menu">
+            <div class="sandwichChaudsContainer">
+                <h2>La carte</h2>
+                <div class="introMenuSlider">
+                    <img class="iconeMenu" src="./img/sandwich.png" alt="iconeSandwich" loading="lazy">
+                    <h3>Sandwichs Chauds (Sans supplément pour les crudités et sauce incluse dans le pain)</h3>
+                    <p> Pour les amateurs de chaleur réconfortante et d'associations gourmandes, nos sandwichs chauds sauront vous séduire. </p>
+                </div>
+                
+                <div class="slider-grid slider1" @mousedown="startDrag($event, 1)" @mousemove="drag($event, 1)" @mouseup="endDrag($event, 1)" @touchstart="startDrag($event, 1)" @touchmove="drag($event, 1)" @touchend="endDrag($event, 1)">
+                    <!-- ... contenu du premier slider -->
+                    <div class="slider-track1" :style="{ transform: 'translateX(' + translateValue1 + 'px)' }">
+                        <div class="slider-item" v-for="(imageSlider1, index) in imageSliders1" :key="index" :class="'item' + imageSlider1.id">
+                            <span class="price">{{ imageSlider1.price }}</span>
+                            <div class="background-imageMenu" @mouseover="applyZoom(imageSliders1, index)" @mouseout="resetZoom(imageSliders1, index)" @touchstart="applyZoom(imageSliders1, index)"
+                            @touchend="resetZoom(imageSliders1, index)">
+                                <div :style="{ backgroundImage: 'url(' + getLazyImage(imageSlider1.image) + ')' }" class="background-imageMenuZoom"></div>
+                            </div>
+                            <div class="descriptionMenu">
+                                <p class="nameDish">{{ imageSlider1.nameDish.replace('/', '&#47;') }}</p>
+                                <p class="caption">{{ imageSlider1.caption }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    <!-- Section Menu Américains sandwichs -->
+            <div class="americainSandwichContainer">
+                <div class="introAmericainsS introMenuSlider">
+                    <img class="iconeMenu2" src="./img/iconeAmericainS.jpg" alt="iconeAméricainS" loading="lazy">
+                    <h3>Américains Sandwichs (Sans supplément pour les crudités et sauce incluse dans le pain)</h3>
+                    <p>Découvrez le plaisir authentique des saveurs américaines avec nos sandwiches maison, spécialement conçus pour les amateurs de goûts riches et généreux</p>
+                </div>
+
+                <div class="slider-grid slider2" @mousedown="startDrag($event, 2)" @mousemove="drag($event, 2)" @mouseup="endDrag($event, 2)" @touchstart="startDrag($event, 2)" @touchmove="drag($event, 2)" @touchend="endDrag($event, 2)">
+                    <div class="slider-track2" :style="{ transform: 'translateX(' + translateValue2 + 'px)' }">
+                        <div class="slider-item" v-for="(imageSlider2, index) in imageSliders2" :key="index" :class="'item' + imageSlider2.id">
+                            <span class="price">{{ imageSlider2.price }}</span>
+                            <div class="background-imageMenu" @mouseover="applyZoom(imageSliders2, index)" @mouseout="resetZoom(imageSliders2, index)">
+                                <div :style="{ backgroundImage: 'url(' + getLazyImage(imageSlider2.image) + ')' }" class="background-imageMenuZoom"></div>
+                            </div>
+                            <div class="descriptionMenu">
+                                <p class="nameDish">{{ imageSlider2.nameDish }}</p>
+                                <p class="caption">{{ imageSlider2.caption }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Menu Pizzas -->
+            <div class="pizzaContainer">
+                <div class="introPizzas introMenuSlider">
+                    <img class="iconeMenu3" src="./img/iconePizza.png" alt="iconePizza" loading="lazy">
+                    <h3>Pizzas Maison</h3>
+                    <p>Succombez à l'irrésistible mariage du fromage fondant et des saveurs authentiques de l'Italie avec notre sélection de pizzas artisanales, soigneusement préparées pour éveiller vos papilles </p>
+                </div>
+
+                <div class="slider-grid slider3" @mousedown="startDrag($event, 3)" @mousemove="drag($event, 3)" @mouseup="endDrag($event, 3)" @touchstart="startDrag($event,3)" @touchmove="drag($event, 3)" @touchend="endDrag($event, 3)">
+                    <div class="slider-track3" :style="{ transform: 'translateX(' + translateValue3 + 'px)' }">
+                        <div class="slider-item" v-for="(imageSlider3, index) in imageSliders3" :key="index" :class="'item' + imageSlider3.id">
+                            <span class="price priceForPizza">{{ imageSlider3.price }}</span>
+                            <div class="background-imageMenu" @mouseover="applyZoom(imageSliders3, index)" @mouseout="resetZoom(imageSliders3, index)">
+                                <div :style="{ backgroundImage: 'url(' + getLazyImage(imageSlider3.image) + ')' }" class="background-imageMenuZoom"></div>
+                            </div>
+                            <div class="descriptionMenu">
+                                <p class="nameDish">{{ imageSlider3.nameDish }}</p>
+                                <p class="caption">{{ imageSlider3.caption }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Menu Paninis -->
+            <div class="paniniContainer">
+                <div class="introPaninis introMenuSlider">
+                    <img class="iconeMenu4" src="./img/paniniIcone.png" alt="iconePanini" loading="lazy">
+                    <h3>Paninis</h3>
+                    <p>Plaisir grillé à chaque bouchée, mes paninis sont soigneusement préparés par mes soins. Laissez-vous séduire par la combinaison harmonieuse de fromages fondants, de viandes savoureuses et d'accompagnements délicats, créant ainsi une explosion de délices à chaque morceau.</p>
+                </div>
+
+                <div class="slider-grid slider4" @mousedown="startDrag($event, 4)" @mousemove="drag($event, 4)" @mouseup="endDrag($event, 4)" @touchstart="startDrag($event,4)" @touchmove="drag($event, 4)" @touchend="endDrag($event, 4)">
+                    <div class="slider-track4" :style="{ transform: 'translateX(' + translateValue4 + 'px)' }">
+                        <div class="slider-item" v-for="(imageSlider4, index) in imageSliders4" :key="index" :class="'item' + imageSlider4.id">
+                            <span class="price priceForPizza">{{ imageSlider4.price }}</span>
+                            <div class="background-imageMenu" @mouseover="applyZoom(imageSliders4, index)" @mouseout="resetZoom(imageSliders4, index)">
+                                <div :style="{ backgroundImage: 'url(' + getLazyImage(imageSlider4.image) + ')' }" class="background-imageMenuZoom"></div>
+                            </div>
+                            <div class="descriptionMenu">
+                                <p class="nameDish">{{ imageSlider4.nameDish }}</p>
+                                <p class="caption">{{ imageSlider4.caption }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!-- Section Menu bagnats -->
+            <div class="bagnatContainer">
+                <div class="introBagnatsSandwichs introMenuSlider">
+                    <img class="iconeMenu5" src="./img/bagnat.png" alt="iconeBagnatsSandwichs" loading="lazy">
+                    <h3>Pains bagnats ou Sandwichs</h3>
+                    <p>Plongez dans une expérience méditerranéenne rafraîchissante avec nos pains bagnats artisanaux ou succombez à la diversité de nos sandwiches délicieusement garnis. </p>
+                </div>
+
+                <div class="slider-grid slider5" @mousedown="startDrag($event, 5)" @mousemove="drag($event, 5)" @mouseup="endDrag($event, 5)" @touchstart="startDrag($event,5)" @touchmove="drag($event, 5)" @touchend="endDrag($event, 5)">
+                    <div class="slider-track5" :style="{ transform: 'translateX(' + translateValue5 + 'px)' }">
+                        <div class="slider-item" v-for="(imageSlider5, index) in imageSliders5" :key="index" :class="'item' + imageSlider5.id">
+                            <span class="price">{{ imageSlider5.price }}</span>
+                            <div class="background-imageMenu" @mouseover="applyZoom(imageSliders5, index)" @mouseout="resetZoom(imageSliders5, index)">
+                                <div :style="{ backgroundImage: 'url(' + getLazyImage(imageSlider5.image) + ')' }" class="background-imageMenuZoom"></div>
+                            </div>
+                            <div class="descriptionMenu">
+                                <p class="nameDish">{{ imageSlider5.nameDish }}</p>
+                                <p class="caption">{{ imageSlider5.caption }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+<!-- Plats avec frites et sans frites-->
+    <div class="PlatFriteOuSans">
+        <div class="assietteFrite">
+            <img src="./img/assietteFrite.png" alt="assietteFrite" loading="lazy">
+            <h3>Plats avec frites</h3>
+            <p>Laissez vous tenter par ma sélection de plats savoureux accompagnés de frites croustillantes. Des classiques réconfortants tels que le kebab avec frites, nuggets frites </p>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Plat</th>
+              <th>Prix</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(plat, index) in platsAvecFrites" :key="index">
+              <td>{{ plat.nom }}</td>
+              <td>{{ plat.prix }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="assietteVide">
+            <img src="./img/assietteVide.png" alt="AssietteVide" loading="lazy">
+            <h3>Plats seuls</h3>
+            <p>Envie d'un plat plus léger, laissez vous tenter par ses différents classiques : burger, croque-monsieur, mexicanos...</p>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Plat</th>
+              <th>Prix</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(plat, index) in platsSansFrites" :key="index">
+              <td>{{ plat.nom }}</td>
+              <td>{{ plat.prix }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+
+
+
+
+    <!-- Le menu Enfant-->
+    <div class="menuEnfantContainer">
+        <div class="menuEnfant">
+            <div class="carteEnfant">
+                <ul>
+                    <li>
+                        Pochette de frites <br> 
+                        Briquette de Jus de Fruit <br>
+                        Sauce mayonnaise 
+                    </li>
+                    <li>
+                        Au choix :
+                        <ol>
+                            <li>Saucisses (x2) - 6,00 €</li>
+                            <li>Nuggets (x4) - 6,00 €</li>
+                            <li>Fricadelle - 6,00 €</li>
+                            <li>Merguez - 6,00 €</li>
+                            <li>Hamburger - 6,00 €</li>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Les Frites-->
+    <div class="friteContainer">
+        <div class="enteteFrite">
+            <img src="./img/cornetFrite.png" alt="cornetFrite" loading="lazy">
+            <h4>Les frites</h4>
+            <p>Afin d'accompagner vos plats, je vous propose différentes tailles de frites selon votre appétit.</p>
+        </div>
+            <ul>
+                <li>
+                    <div class="petiteFrite">
+                        <p class="friteSize">Petite Frite</p>
+                        <p class="priceFrite">2,50 €</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="moyenneFrite">
+                        <p class="friteSize">Moyenne Frite</p>
+                        <p class="priceFrite">3,00 €</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="grandeFrite">
+                        <p class="friteSize">Grande Frite</p>
+                        <p class="priceFrite">3,50 €</p>
+                    </div>
+                </li>
+            </ul>
+    </div>
+
+
+    <!-- Les boissons -->
+    <div class="headerBoisson">
+        <img src="./img/iconeBoisson.png" alt="iconeBoisson" loading="lazy">
+        <h4>Les boissons</h4>
+    </div>
+
+    <div class="menu-container">
+        <div class="drink-card">
+          <div class="drink-image" style="background-image: url('./img/Boissons33cl.jpg');"></div>
+          <div class="drink-details">
+            <h3>Boisson (33cl)</h3>
+            <p>Boisson rafraîchissante</p>
+            <p class="priceBoisson">1,50 € (33cl) <br> 3,00 € (55cl)</p>
+          </div>
+        </div>
+
+        <div class="drink-card">
+            <div class="drink-image" style="background-image: url('./img/leffe33cl.jpg');"></div>
+            <div class="drink-details">
+              <h3>Leffe</h3>
+              <p>Bière rafraîchissante</p>
+              <p class="priceBoisson">2,00 € (33cl) <br> 1,50 € (25cl)</p>
+            </div>
+          </div>
+
+          <div class="drink-card">
+            <div class="drink-image" style="background-image: url('./img/vinRougeRosé.jpg');"></div>
+            <div class="drink-details">
+              <h3>Vin rouge ou rosé (75cl)</h3>
+              <p>Vin rafraîchissant</p>
+              <p class="priceBoisson">6,00 €</p>
+            </div>
+          </div>
+
+          <div class="drink-card">
+            <div class="drink-image" style="background-image: url('./img/eau50cl.jpg');"></div>
+            <div class="drink-details">
+              <h3>Eau 50cl</h3>
+              <p>Boisson rafraîchissante</p>
+              <p class="priceBoisson">1,00 €</p>
+            </div>
+          </div>
+      </div>
+
+
+    <!-- les sauces -->
+    <div class="sauceContainer">
+        <img src="./img/sauce.png" alt="sauce" loading="lazy">
+        <h4>Les sauces</h4>
+        <div class="cadreSauce">
+            <div class="prixSauces">0,50 €</div>
+            <p>Afin d'accompagner vos plats, je vous propose un large choix de sauces différentes: </p>
+            <div class="sauceList">
+                <ul>
+                    <li>Américaine <br>Andalouse <br>Algérienne <br>Barbecue <br> Bourgy-Burger <br> Cocktail</li>
+                    <li>Hannibal <br> Harissa <br> Ketchup <br> Mayonnaise <br> Oignons <br> Pitta</li>
+                    <li>Poivre <br> Provençale <br> Samouraï <br> Picallili <br> Ch'ti <br> Oignons-Poivrons</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+    
+
+
+
+
+        <!-- Horaire et Localisation-->
+
+        <div class="horaireEtLocalisation">
+            <div class="horaires" id="horaires">
+                <h3>Horaires d'ouvertures</h3>
+                <p>Lundi: Fermé</p>
+                <p>Mardi:   10h30 – 14h00, 18h00 – 22h00 </p>
+                <p>Mercredi:   10h30 – 14h00, 18h00 – 22h00</p>
+                <p>Jeudi:  10h30 – 14h00 , 18h00 – 22h00</p>
+                <p>Vendredi:  10h30 – 14h00, 18h00 – 22h30</p>
+                <p>Samedi:  10h30 – 14h00, 18h00 – 22h30</p>
+                <p>Dimanche:  18h00 – 22h00</p>
+            </div>
+
+            <div class="localisation">
+                <div class="imageIframe">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2539.0478628204837!2d3.0533262122832316!3d50.47745267147887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c2d27494a61433%3A0xf83fe9044341e147!2sBonne%20Bouffe!5e0!3m2!1sfr!2sfr!4v1707386599768!5m2!1sfr!2sfr" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info -->
+
+        <div class="info">
+            <div class="paiementCarte">
+                <img src="./img/carte.jpg" alt="carteBleue" loading="lazy">
+                <p>Paiement par carte et ticket-restaurant acceptés</p>
+            </div>
+            <div class="reservation">
+                <img src="./img/reservation.jpg" alt="reservation" loading="lazy">
+                <p>Réserver votre menu par téléphone au </p> <br>
+                <a href="tel: 03 20 96 03 43">03 20 96 03 43</a>
+            </div>
+        </div>
+
+        <!-- footer -->
+        <footer id="contact">
+            <div class="coordonnees">
+                <h3>Coordonnées:</h3>
+                <a href="tel: 03 20 96 03 43">03 20 96 03 43</a>
+            </div>
+            <div class="barreMid"></div>
+            <div class="lieu">
+                <h3>Adresse:</h3>
+                <p>7 Bis Rue Léon Blum, 59239 Thumeries</p>
+            </div>
+        </footer>
+    </div>
+    </div>
+</body>
+</html>
